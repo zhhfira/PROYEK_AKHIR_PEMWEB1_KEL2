@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Login Admin</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+    }
+
+    .kembali {
+        width: 50px;
+        height: 50px;
+        margin-left: 5%;
+        border-radius: 10%;
+    }
+
+    .kembali :hover {
+        transform: scale(1.1);
+    }
+
+    .judul {
+      align-content: center;
+      color: white;
+      background-color: #4CAF50;
+      border-radius: 10px;
+      padding: 14px;
+      font-size: large;
+      max-width: 515px;
+      margin: 0 auto;
+      text-align: center;
+      box-shadow: 3px 7px 10px gray;
+    }
+
+    .container {
+      box-shadow: 3px 7px 10px gray;
+      max-width: 500px;
+      margin: 0 auto;
+      padding: 20px;
+      border: 1px solid #ccc;
+      border-radius: 10px;
+      background-color: rgb(255, 255, 255);
+    }
+
+    h2 {
+      text-align: center;
+    }
+
+    .kolom {
+      margin-bottom: 30px;
+    }
+
+    .kolom label {
+      color: black;
+      display: block;
+      font-weight: bold;
+    }
+
+    .kolom input {
+      padding: 10px;
+      font-size: 16px;
+      border-radius: 5px;
+      border: 1px solid black;
+      background-color: #d8d5d5;
+      width: 480px;
+    }
+
+    .kolom button {
+      width: auto;
+      padding: 10px;
+      font-size: 16px;
+      border-radius: 5px;
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+    }
+
+    .kolom button:hover {
+      background-color: #63be66;
+      transform: scale(1.1);
+    }
+  </style>
+</head>
+
+<body style="background-image: url(bg-proyek.jpg); background-size: cover;">
+  <center><img src="logobanksampah.png" alt="logobanksampah.png" style="width: 70px;"></center>
+  <h2>LOGIN ADMIN</h2>
+  <div class="judul">Silahkan Login Untuk Mengakses Akun</div>
+  <div class="container">
+    <table>
+      <div class="kolom">
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email" placeholder="Masukkan Email Anda">
+      </div>
+      <div class="kolom">
+        <label for="password">Password:</label>
+        <input type="password" id="password" name="password" placeholder="Masukkan Password Anda">
+      </div>
+    </table>
+  </div>
+  <br>
+  <br>
+  <div class="kolom">
+    <center><button type="submit" id="login" style="margin-top: 30px;"><a href="dataadmin.html"></a>Submit</button></center>
+  </div>
+
+</body>
+
+<script type="module">
+  // Import the functions you need from the SDKs you need
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.1/firebase-app.js";
+  import { getAuth, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/9.22.1/firebase-auth.js";
+  // TODO: Add SDKs for Firebase products that you want to use
+  // https://firebase.google.com/docs/web/setup#available-libraries
+
+  // Your web app's Firebase configuration
+  const firebaseConfig = {
+    apiKey: "AIzaSyCz1hy4SknCTft_0XNTYVL1QqJyIVwkCIM",
+    authDomain: "authentication-app-d885e.firebaseapp.com",
+    databaseURL: "https://authentication-app-d885e-default-rtdb.firebaseio.com",
+    projectId: "authentication-app-d885e",
+    storageBucket: "authentication-app-d885e.appspot.com",
+    messagingSenderId: "174931973234",
+    appId: "1:174931973234:web:ad8974cdf7e7ff3ce9deeb"
+  };
+
+  // Initialize Firebase
+  const app = initializeApp(firebaseConfig);
+  const auth = getAuth();
+
+  login.addEventListener('click', (e) => {
+    var email = document.getElementById('email').value;
+    var password = document.getElementById('password').value;
+
+    signInWithEmailAndPassword(auth, email, password)
+      .then((userCredential) => {
+        // Signed in
+        const user = userCredential.user;
+        
+        alert('Login Berhasil!');
+        // Redirect to another page or perform further actions
+        window.location.href = 'dataadmin.html';
+      })
+      .catch((error) => {
+        const errorCode = error.code;
+        const errorMessage = error.message;
+
+        alert(errorMessage);
+      });
+  });
+</script>
+
+</html>
