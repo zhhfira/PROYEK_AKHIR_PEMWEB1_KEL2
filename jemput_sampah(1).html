@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jemput sampah</title>
+    <link rel="stylesheet" href="cssjemputsampah.css">
+</head>
+<body>
+    <h1>PENJEMPUTAN SAMPAH</h1>
+    <h3 style="font-size: 20px; color: rgb(73, 71, 71);">Sampah anda ingin kami jemput? Tambahkan data anda dengan klik Jemput Sampah dibawah ini !</h3>
+    <div class="tambah-data">
+        <button class="btn" id="btnTambah">Jemput Sampah</button>
+    </div>
+
+    <div id="tabel">
+        <table id="tabel-main">
+            <thead>
+                <tr>
+                    <th>No</th>
+                    <th>Nama</th>
+                    <th>Kategori Sampah</th>
+                    <th>Berat Sampah</th>
+                    <th>Harga Sampah/kg</th>
+                    <th>Tanggal Penjemputan</th>
+                    <th>Alamat</th>
+                    <th>Catatan Tambahan</th>
+                </tr>
+            </thead>
+            <tbody id="data">
+            </tbody>
+        </table>
+    </div>
+
+    <div id="myModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+
+            <div class="inputModal">
+                <h3 id="judulModal">Tambah Data Penjemputan Sampah</h3>
+                <table>
+                    <tr>
+                        <td><label for="nama">Nama</label></td>
+                        <td><input type="text" name="nama" id="nama" placeholder="Masukkan nama"></td>
+                    </tr>
+                    <tr>
+                        <td><label for="kategori">Kategori Sampah</label></td>
+                        <td><select name="kategori" id="kategori" onchange="updateHarga()">
+                            <option value="pilih">Pilih Jenis Sampah</option>
+                            <option value="plastik">Plastik (2000/kg)</option>
+                            <option value="logam">Logam (3000/kg)</option>
+                            <option value="kertas">Kertas (1000/kg)</option>
+                        </select></td>
+                    </tr>
+                    <tr>
+                        <td><label for="beratInput">Berat Sampah</label></td>
+                        <td><input type="text" id="beratInput" placeholder="Masukkan berat" oninput="updateHarga()">
+                    </tr>
+                    <tr>
+                        <td><label for="harga">Harga/kg</label></td>
+                        <td><input type="text" id="harga" readonly>
+                    </tr>
+                    <tr>
+                        <td><label for="tanggalPenjemputan">Tanggal Penjemputan</label></td>
+                        <td><input type="text" id="tanggalPenjemputan" placeholder="Masukkan tanggal">
+                    </tr>
+                    <tr>
+                        <td><label for="alamat">Alamat Penjemputan</label></td>
+                        <td><input type="text" id="alamat" placeholder="Masukkan alamat">
+                    </tr>
+                    <tr>
+                        <td><label for="catatan">Catatan</label></td>
+                        <td><input type="text" id="catatan" placeholder="Masukkan catatan tambahan anda">
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td><input type="button" value="Submit" name="submit" id="submit" class="btn"></td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Edit Data -->
+    <div id="editModal" class="modal">
+
+        <!-- Modal Content -->
+        <div class="modal-content">
+            <span class="close">&times;</span>
+
+            <div class="inputModal">
+                <h3 id="judulModal">Tambah Data</h3>
+                <table>
+                    <tr>
+                        <td><label for="nama">Nama</label></td>
+                        <td><input type="text" name="nama" id="namaEdit"></td>
+                    </tr>
+                    <tr>
+                        <td><label for="kategori">Kategori Sampah</label></td>
+                        <td><select name="kategori" id="kategori" onchange="updateHarga()">
+                            <option value="pilih">Pilih Jenis Sampah</option>
+                            <option value="plastik">Plastik (2000/kg)</option>
+                            <option value="logam">Logam (3000/kg)</option>
+                            <option value="kertas">Kertas (1000/kg)</option>
+                        </select></td>
+                    </tr>
+                    <tr>
+                        <td><label for="beratInput">Berat Sampah</label></td>
+                        <td><input type="text" id="beratInput" placeholder="Masukkan berat" oninput="updateHarga()">
+                    </tr>
+                    <tr>
+                        <td><label for="harga">Harga/kg</label></td>
+                        <td><input type="text" id="harga" readonly>
+
+                    </tr>
+                    <tr>
+                        <td><label for="tanggalPenjemputan">Tanggal Penjemputan</label></td>
+                        <td><input type="text" id="tanggalPenjemputan" placeholder="Masukkan tanggal">
+                    </tr>
+                    <tr>
+                        <td><label for="alamat">Alamat Penjemputan</label></td>
+                        <td><input type="text" id="alamat" placeholder="Masukkan alamat">
+                    </tr>
+                    <tr>
+                        <td><label for="catatan">Catatan</label>/td>
+                        <td><input type="text" id="catatan" placeholder="Masukkan catatan tambahan anda">
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td><input type="button" value="Submit" name="submit" id="submitEdit" class="btn"></td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <script src="jvsjemputsampah.js"></script>
+    
+    <script type="module">
+        // Import the functions you need from the SDKs you need
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-app.js";
+        // TODO: Add SDKs for Firebase products that you want to use
+        import { getDatabase, ref, set, push, get, child, onValue, update, remove } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-database.js";
+
+
+        // Your web app's Firebase configuration
+        const firebaseConfig = {
+            apiKey: "AIzaSyBxaiFQPg-Ef4bt8_dCGo9BMkhcjyEOaSQ",
+            authDomain: "fbjemputsampah.firebaseapp.com",
+            projectId: "fbjemputsampah",
+            storageBucket: "fbjemputsampah.appspot.com",
+            messagingSenderId: "186798533099",
+            appId: "1:186798533099:web:a12ac7bcffbcf330cfd1ae"
+        };
+
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+        const database = getDatabase(app);
+
+
+        // inisialisasi tiap inputan
+        let nama = document.getElementById('nama');
+        let kategori = document.getElementById('kategori');
+        let beratInput = document.getElementById('beratInput');
+        let harga = document.getElementById('harga');
+        let tanggalPenjemputan = document.getElementById('tanggalPenjemputan');
+        let alamat = document.getElementById('alamat');
+        let catatan = document.getElementById('catatan');
+        var selectedKey;
+        var editModal = document.getElementById('editModal');
+
+        // kerangka isi tbody
+        var tbody = document.getElementById('data');
+        var no = 0;
+
+        function addItemToTable(key, nama, beratInput, kategori, harga, tanggalPenjemputan,
+        alamat, catatan){
+            let trow = document.createElement('tr');
+
+            let table =` 
+                        <td>${++no}</td>
+                        <td>${nama}</td>
+                        <td>${beratInput}</td>
+                        <td>${kategori}</td>
+                        <td>${harga}</td>
+                        <td>${tanggalPenjemputan}</td>
+                        <td>${alamat}</td>
+                        <td>${catatan}</td>
+                `
+            let td = document.createElement('td')
+
+            let btnEdit = document.createElement('button');
+            let t = document.createTextNode('Edit');
+            btnEdit.id = 'btnEdit';
+            btnEdit.classList.add('btn')
+            btnEdit.value = key
+            btnEdit.appendChild(t);
+            btnEdit.addEventListener('click', ()=>{
+                editModal.style.display = 'block';
+                selectedKey = btnEdit.value;
+            })
+            btnEdit.onclick = function(){showDataEdit(btnEdit.value)};
+
+            let btnHapus = document.createElement('button');
+            t = document.createTextNode('Hapus');
+            btnHapus.id = 'btnHapus';
+            btnHapus.classList.add('btn')
+            btnHapus.value = key;
+            btnHapus.appendChild(t);
+            btnHapus.addEventListener('click', (key)=>{
+                hapusData(btnEdit.value)
+            })
+
+            trow.innerHTML = table;
+
+            tbody.appendChild(trow);
+        }       
+
+        function AddAllItemToTable(Sampah){
+            no = 0;
+            tbody.innerHTML='';
+            Sampah.forEach(element => {
+                addItemToTable(element.key, element.nama, element.kategori, element.beratInput,
+                element.harga, element.tanggalPenjemputan, element.alamat, element.catatan);
+            })
+        }
+
+            // tambah data
+        function tambahData(){
+            let data = {
+                nama: nama.value,
+                kategori: kategori.value,
+                beratInput: beratInput.value,
+                harga: harga.value,
+                tanggalPenjemputan: tanggalPenjemputan.value,
+                alamat: alamat.value,
+                catatan: catatan.value
+            };
+
+            push(ref(database, 'sampah'), data)
+            .then(()=>{
+                nama.value = '';
+                kategori.value = '';
+                beratInput.value = '';
+                harga.value = '';
+                tanggalPenjemputan.value = '';
+                alamat.value = '';
+                catatan.value = '';
+                alert('Data berhasil ditambahkan, tunggu kami memproses data anda!');
+            })
+            .catch((error)=>{
+                alert('Data gagal ditambahkan');
+            })
+        }
+
+        // assign button
+        document.getElementById('submit').addEventListener('click', tambahData);
+
+        // get data realtime
+        function getAllDataRealTime(){
+            const dbRef = ref(database, 'sampah');
+            var tabel = document.getElementById('tabel');
+
+            onValue(dbRef, (snapshot)=>{
+                var sampah = []
+                snapshot.forEach(childSnapshot =>{
+                    let temp = childSnapshot.val();
+                    temp['key'] = childSnapshot.key;
+                    sampah.push(temp);
+                });
+            AddAllItemToTable(sampah);
+            })
+        }
+        window.onload = getAllDataRealTime();
+
+
+        </script>
+</body>
+</html>
