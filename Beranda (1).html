@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Beranda</title>
+  <style>
+      .para {
+        font-size: 20px;
+      }
+
+      hr {
+      height: 2px;
+      background-color: rgb(3, 140, 33);
+      }
+
+      a {
+        color: black;
+        text-decoration: none; 
+      }
+
+      * {
+        font-family: sans-serif;
+      }
+
+      .lokasi_atas {
+        margin: 0 auto;
+        display: flex;
+        justify-content: center;
+        background-color: rgb(31, 202, 4);
+        border-radius: 0 0 100% 100%;
+        width: 800px;
+        height: 90px;
+      }
+
+      .lokasi_atas>div {
+        background-color: #f1f1f1;
+        max-width: fit-content;
+        height: 40px;
+        margin: 10px;
+        padding: 10px;
+        text-align: center;
+        box-shadow: 5px 5px 5px rgb(124, 124, 124);
+        border-radius: 35px;
+        font-size: 15px;
+        display: flex;
+        align-items: center;
+      }
+
+      .flex-container {
+        border-radius: 20px;
+        max-width: 80%;
+        align-items: center;
+        margin: 0 auto;
+        margin-top: 30px;
+        display: flex;
+        justify-content: center;
+        background-color: rgb(237, 237, 237);
+        box-shadow: 10px 10px 10px rgb(124, 124, 124);
+      }
+
+      .flex-container2 {
+        border-radius: 20px;
+        align-items: center;
+        margin: 0 auto;
+        margin-top: 30px;
+        display: flex;
+        justify-content: center;
+      }
+
+      .flex-container2 :hover {
+        transform: scale(1.1);
+      }
+
+      .flex-container2>div {
+        height: 200px;
+        width: 35%;
+        margin-inline: 55px;
+        justify-content: center;
+        align-items: center;
+        font-size: auto;
+        background-color: rgb(237, 237, 237);
+        text-align: center;
+        padding: 15px;
+        border-radius: 20px;
+        box-shadow: 10px 10px 10px rgb(124, 124, 124);
+      }
+
+      .flex-container>div {
+        margin: 15px;
+        justify-content: center;
+        align-items: center;
+        font-size: 25px;
+      }
+
+
+      .box1>img {
+        width: 120px;
+        position: absolute;
+        top: 25px;
+        right: 20px;
+      }
+
+      .header {
+        background-color: rgb(3, 140, 33);
+        border-radius: 20px;
+        height: 150px;
+        color: white;
+        padding: 8px 20px 0;
+        font-size: 25px;
+      }
+
+      .header>img {
+        width: 120px;
+        position: absolute;
+        top: 25px;
+        right: 20px;
+      }
+
+      @media only screen and (max-width: 900px) {
+        .flex-container {
+          flex-direction: column;
+        }
+
+        .lokasi_atas {
+          background-color: transparent;
+          width: auto;
+        }
+      }
+
+      @media only screen and (max-width: 768px) {
+        .flex-container2 {
+          flex-direction: column;
+        }
+
+        .flex-container2>div {
+          width: 80%;
+          height: auto;
+          margin: 20px;
+        }
+      }
+    </style>
+</head>
+
+<body style="background-image: url(bg-proyek.jpg); background-size: cover;">
+  <div class="header">
+    <p>Selamat datang,</p>
+    <h3>di Website Bank Sampah Kami.</h3>
+  </div>
+  <div class="lokasi_atas">
+    <div>
+      <img src="logolokasis.png" width="30px" height="30px">
+      <p>Kota Banjarmasin</p>
+    </div>
+  </div>
+  <div class="flex-container">
+    <div>
+      <h4>Tukarkan Sampahmu Sekarang!!!</h4>
+      <p>Aplikasi bank sampah adalah solusi untuk menyelesaikan masalah sosial tentang kebersihan lingkungan</p>
+    </div>
+    <div>
+      <img width="200px" src="logoheader.png">
+    </div>
+  </div>
+  <h1 style="text-align: center; color: black; font-weight: bolder;">Menu Kategori</h1>
+  <div class="flex-container2">
+    <div><a href="jemput_sampah(1).html"><img src="logojemput.png" width="190px" height="110px"></a>
+      <p class="para"><a href="jemput_sampah(1).html">Jemput Sampah</a></p>
+      <hr>
+    </div>
+    <div><a href="deskripsiProject.html"><img src="logodeskripsi.png" width="100px" height="110px"></a>
+      <p class="para"><a href="deskripsiProject.html">Deskripsi Sampah</a></p>
+      <hr>
+    </div>
+  </div>
+</body>
+
+</html>
